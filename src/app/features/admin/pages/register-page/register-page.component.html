@@ -1,1 +1,22 @@
-<p>register-page works!</p>
+<h2>Register</h2>
+
+<p>first name</p>
+<input type="text" [(ngModel)]="firstName">
+
+<p>last name</p>
+<input type="text" [(ngModel)]="lastName">
+
+<p>email</p>
+<input type="text" [(ngModel)]="email">
+
+<p>password</p>
+<input type="email" [(ngModel)]="password">
+
+<p>role</p>
+<select name="role" id="role" [(ngModel)]="role">
+  <option value="">--Please choose an option--</option>
+  <option value="user">User</option>
+  <option value="manager">Manager</option>
+</select>
+
+<button (click)="onRegsiter()">Submit</button>

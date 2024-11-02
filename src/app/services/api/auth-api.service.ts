@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { API_URL } from '@env/environment';
+import { ILoginReq, IRegisterReq } from '@app/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -13,26 +14,11 @@ export class AuthApiService {
 
   constructor() { }
 
-  public login(email: string, password: string): any {
-    signInWithEmailAndPassword(getAuth(), email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        debugger;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+  public login({ email, password }: ILoginReq): Observable<any> {
+    return from(signInWithEmailAndPassword(getAuth(), email, password));
   }
 
-  public signin(email: string, password: string): Observable<unknown> {
-    const body = {
-      email,
-      password,
-      name: 'Test1',
-      role: 'manager',
-      birthDateMs: 576453600000
-    }
-    return this.#http.post<unknown>(`${API_URL}/account`, body);
+  public register(req: IRegisterReq): Observable<any> {
+    return this.#http.post<unknown>(`${API_URL}/account`, req);
   }
 }

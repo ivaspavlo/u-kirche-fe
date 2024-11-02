@@ -7,7 +7,23 @@ export const ADMIN_FEATURE_KEY = 'admin';
 export const adminReducer = createReducer(
   adminInitialState,
   on(
-    AdminActions.login,
+    AdminActions.loginSuccess,
+    (state) => {
+      return {
+        ...state
+      }
+    }
+  ),
+  on(
+    AdminActions.loginError,
+    (state) => {
+      return {
+        ...state
+      }
+    }
+  ),
+  on(
+    AdminActions.registerSuccess,
     (state) => {
       return {
         ...state
