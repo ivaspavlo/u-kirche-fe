@@ -21,7 +21,7 @@ export const CORE_ROUTES: Routes = [
         path: CORE_ROUTE_NAMES.ADMIN,
         providers: [
           provideState(adminState.ADMIN_FEATURE_KEY, adminState.reducer),
-          provideEffects([])
+          provideEffects([adminState.AdminEffects])
         ],
         loadChildren: () => import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
       },

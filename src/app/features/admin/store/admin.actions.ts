@@ -1,9 +1,13 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
-import { ADMIN_FEATURE_KEY } from './admin.reducer';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { ILoginReq, IRegisterReq } from '@app/interfaces';
 
 export const AdminActions = createActionGroup({
-  source: ADMIN_FEATURE_KEY,
+  source: 'admin',
   events: {
-    'Login': emptyProps()
+    'Login': props<ILoginReq>(),
+    'Login Success': props<{ res: object }>(),
+    'Login Error': emptyProps(),
+    'Register': props<IRegisterReq>(),
+    'Register Success': emptyProps()
   }
 });
