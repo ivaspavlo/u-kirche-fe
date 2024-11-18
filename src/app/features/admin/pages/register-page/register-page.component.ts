@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AdminActions } from '../../store/admin.actions';
+import { ROLE } from '@app/constants';
 
 @Component({
   selector: 'app-register-page',
@@ -19,14 +20,13 @@ export class RegisterPageComponent {
   public lastName: string = '';
   public email: string = '';
   public password: string = '';
-  public role: 'user' | 'manager' = 'user';
 
   public onRegsiter(): void {
     const req = {
       name: `${this.firstName} ${this.lastName}`,
       email: this.email,
       password: this.password,
-      role: this.role
+      role: ROLE.ADMIN
     }
     this.#store.dispatch(AdminActions.register(req));
   }

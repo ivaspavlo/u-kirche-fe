@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { API_URL } from '@env/environment';
 import { ILoginReq, IRegisterReq } from '@app/interfaces';
@@ -15,7 +14,7 @@ export class AuthApiService {
   constructor() { }
 
   public login({ email, password }: ILoginReq): Observable<any> {
-    return from(signInWithEmailAndPassword(getAuth(), email, password));
+    return this.#http.post<unknown>(`${API_URL}/auth/login`, { email, password });
   }
 
   public register(req: IRegisterReq): Observable<any> {
