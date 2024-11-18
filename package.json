@@ -10,8 +10,8 @@
     "watch:prod": "ng build --watch --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy:dev": "npm run build:development && firebase deploy --only hosting",
-    "deploy:prod": "npm run build:production && firebase deploy --only hosting --project prod"
+    "deploy:dev": "npm run build:dev && firebase deploy --only hosting",
+    "deploy:prod": "npm run build:prod && firebase deploy --only hosting --project prod"
   },
   "private": true,
   "dependencies": {
