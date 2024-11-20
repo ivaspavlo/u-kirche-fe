@@ -5,16 +5,16 @@ name: Deploy to Firebase Hosting on merge
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
-  deploy-hosting:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build:dev
+      - run: npm ci && npm run build:prod
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_PROD_6CC4C }}
           channelId: live
-          projectId: u-kirche-dev-e7672
+          projectId: u-kirche-prod-6cc4c
