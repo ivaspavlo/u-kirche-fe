@@ -17,4 +17,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_U_KIRCHE_DEV }}
           channelId: live
-          projectId: u-kirche-dev
+          projectId: u-kirche-dev-e7672
