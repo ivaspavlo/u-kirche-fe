@@ -8,6 +8,7 @@ export const AdminActions = createActionGroup({
     'Login Success': props<{ res: object }>(),
     'Login Error': emptyProps(),
     'Register': props<IRegisterReq>(),
-    'Register Success': emptyProps()
+    'Register Success': emptyProps(),
+    'Logout': emptyProps()
   }
 });
