@@ -1,7 +1,7 @@
 export interface IAdminState {
-  isLoggedIn: boolean
+  auth: boolean
 }
 
 export const adminInitialState = {
-  isLoggedIn: false
+  auth: false
 };

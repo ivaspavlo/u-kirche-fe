@@ -10,7 +10,8 @@ export const adminReducer = createReducer(
     AdminActions.loginSuccess,
     (state) => {
       return {
-        ...state
+        ...state,
+        auth: true
       }
     }
   ),
@@ -18,7 +19,8 @@ export const adminReducer = createReducer(
     AdminActions.loginError,
     (state) => {
       return {
-        ...state
+        ...state,
+        auth: false
       }
     }
   ),
