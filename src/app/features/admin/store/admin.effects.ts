@@ -25,7 +25,17 @@ export class AdminEffects {
           return AdminActions.loginError();
         }
         this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
-        return AdminActions.loginSuccess({ res });
+        return AdminActions.loginSuccess();
+      })
+    )
+  );
+
+  public logout$ = createEffect(() =>
+    this.#actions$.pipe(
+      ofType(AdminActions.logout),
+      map(() => {
+        this.#localStorage.removeItem(KEYS.ACCESS_TOKEN);
+        return AdminActions.logoutSuccess();
       })
     )
   );
@@ -40,9 +50,9 @@ export class AdminEffects {
       }),
       map((res: object | null) => {
         if (res === null) {
-          return AdminActions.loginError();
+          return AdminActions.registerSuccess();
         }
-        return AdminActions.loginSuccess({ res });
+        return AdminActions.registerError();
       })
     )
   );

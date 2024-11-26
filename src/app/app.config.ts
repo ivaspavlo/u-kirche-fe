@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 
@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     ...CORE_PROVIDERS,
     provideRouter(CORE_ROUTES, withComponentInputBinding()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideStore(),
     provideEffects()
   ]

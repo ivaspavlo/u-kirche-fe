@@ -25,10 +25,11 @@ export const adminReducer = createReducer(
     }
   ),
   on(
-    AdminActions.registerSuccess,
+    AdminActions.logoutSuccess,
     (state) => {
       return {
-        ...state
+        ...state,
+        auth: false
       }
     }
   )

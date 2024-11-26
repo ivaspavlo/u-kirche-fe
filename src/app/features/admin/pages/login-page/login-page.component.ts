@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
+
+import { API_URL } from '@env/environment';
 import { AdminActions } from '../../store/admin.actions';
 
 @Component({
@@ -15,15 +18,19 @@ import { AdminActions } from '../../store/admin.actions';
 })
 export class LoginPageComponent {
   readonly #store: Store = inject(Store);
+  readonly #http: HttpClient = inject(HttpClient);
 
   public email: string = '';
   public password: string = '';
 
-  public onRegsiter(): void {
-    const req = {
+  public onLogin(): void {
+    this.#store.dispatch(AdminActions.login({
       email: this.email,
       password: this.password
-    }
-    this.#store.dispatch(AdminActions.login(req));
+    }));
+  }
+
+  public onTest(): void {
+    this.#http.get(API_URL).subscribe();
   }
 }

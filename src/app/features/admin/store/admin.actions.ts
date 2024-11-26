@@ -5,10 +5,12 @@ export const AdminActions = createActionGroup({
   source: 'admin',
   events: {
     'Login': props<ILoginReq>(),
-    'Login Success': props<{ res: object }>(),
+    'Login Success': emptyProps(),
     'Login Error': emptyProps(),
     'Register': props<IRegisterReq>(),
     'Register Success': emptyProps(),
-    'Logout': emptyProps()
+    'Register Error': emptyProps(),
+    'Logout': emptyProps(),
+    'Logout Success': emptyProps()
   }
 });
