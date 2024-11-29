@@ -7,30 +7,30 @@ import { API_URL } from '@env/environment';
 import { AdminActions } from '../../store/admin.actions';
 
 @Component({
-  selector: 'app-login-page',
-  standalone: true,
-  imports: [
-    FormsModule
-  ],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-login-page',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './login-page.component.html',
+    styleUrl: './login-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
-  readonly #store: Store = inject(Store);
-  readonly #http: HttpClient = inject(HttpClient);
+    readonly #store: Store = inject(Store);
+    readonly #http: HttpClient = inject(HttpClient);
 
-  public email: string = '';
-  public password: string = '';
+    public email: string = '';
+    public password: string = '';
 
-  public onLogin(): void {
-    this.#store.dispatch(AdminActions.login({
-      email: this.email,
-      password: this.password
-    }));
-  }
+    public onLogin(): void {
+        this.#store.dispatch(
+            AdminActions.login({
+                email: this.email,
+                password: this.password
+            })
+        );
+    }
 
-  public onTest(): void {
-    this.#http.get(API_URL).subscribe();
-  }
+    public onTest(): void {
+        this.#http.get(API_URL).subscribe();
+    }
 }

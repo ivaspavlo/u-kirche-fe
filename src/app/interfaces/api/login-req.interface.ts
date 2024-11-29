@@ -1,8 +1,8 @@
 export interface ILoginReq {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 export interface ILoginRes {
-  jwt: string;
+    jwt: string;
 }

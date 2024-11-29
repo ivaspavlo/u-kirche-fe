@@ -11,49 +11,46 @@ import { AdminActions } from './admin.actions';
 
 @Injectable()
 export class AdminEffects {
-  readonly #actions$: Actions = inject(Actions);
-  readonly #authApiService: AuthApiService = inject(AuthApiService);
-  readonly #localStorage: Storage = inject(LOCAL_STORAGE);
+    readonly #actions$: Actions = inject(Actions);
+    readonly #authApiService: AuthApiService = inject(AuthApiService);
+    readonly #localStorage: Storage = inject(LOCAL_STORAGE);
 
-  public login$ = createEffect(() =>
-    this.#actions$.pipe(
-      ofType(AdminActions.login),
-      switchMap((req: ILoginReq) =>
-        this.#authApiService.login(req).pipe(catchError(() => of(null)))),
-      map((res: ILoginRes | null) => {
-        if (res === null) {
-          return AdminActions.loginError();
-        }
-        this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
-        return AdminActions.loginSuccess();
-      })
-    )
-  );
-
-  public logout$ = createEffect(() =>
-    this.#actions$.pipe(
-      ofType(AdminActions.logout),
-      map(() => {
-        this.#localStorage.removeItem(KEYS.ACCESS_TOKEN);
-        return AdminActions.logoutSuccess();
-      })
-    )
-  );
-
-  public register$ = createEffect(() =>
-    this.#actions$.pipe(
-      ofType(AdminActions.register),
-      switchMap((req: IRegisterReq) => {
-        return this.#authApiService.register(req).pipe(
-          catchError(() => of(null))
+    public login$ = createEffect(() =>
+        this.#actions$.pipe(
+            ofType(AdminActions.login),
+            switchMap((req: ILoginReq) => this.#authApiService.login(req).pipe(catchError(() => of(null)))),
+            map((res: ILoginRes | null) => {
+                if (res === null) {
+                    return AdminActions.loginError();
+                }
+                this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
+                return AdminActions.loginSuccess();
+            })
         )
-      }),
-      map((res: object | null) => {
-        if (res === null) {
-          return AdminActions.registerSuccess();
-        }
-        return AdminActions.registerError();
-      })
-    )
-  );
+    );
+
+    public logout$ = createEffect(() =>
+        this.#actions$.pipe(
+            ofType(AdminActions.logout),
+            map(() => {
+                this.#localStorage.removeItem(KEYS.ACCESS_TOKEN);
+                return AdminActions.logoutSuccess();
+            })
+        )
+    );
+
+    public register$ = createEffect(() =>
+        this.#actions$.pipe(
+            ofType(AdminActions.register),
+            switchMap((req: IRegisterReq) => {
+                return this.#authApiService.register(req).pipe(catchError(() => of(null)));
+            }),
+            map((res: object | null) => {
+                if (res === null) {
+                    return AdminActions.registerSuccess();
+                }
+                return AdminActions.registerError();
+            })
+        )
+    );
 }
