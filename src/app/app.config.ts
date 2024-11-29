@@ -8,11 +8,11 @@ import { CORE_ROUTES } from './app.routes';
 import { CORE_PROVIDERS } from './services/providers';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    ...CORE_PROVIDERS,
-    provideRouter(CORE_ROUTES, withComponentInputBinding()),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideStore(),
-    provideEffects()
-  ]
+    providers: [
+        ...CORE_PROVIDERS,
+        provideRouter(CORE_ROUTES, withComponentInputBinding()),
+        provideHttpClient(withInterceptorsFromDi()),
+        provideStore(),
+        provideEffects()
+    ]
 };

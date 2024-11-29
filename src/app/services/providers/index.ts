@@ -8,9 +8,4 @@ export * from './local-storage.provider';
 export * from './locale.provider';
 export * from './auth-interceptor.provider';
 
-export const CORE_PROVIDERS = [
-  windowProvider,
-  localStorageProvider,
-  localeProvider,
-  AuthInterceptorProvider
-];
+export const CORE_PROVIDERS = [windowProvider, localStorageProvider, localeProvider, AuthInterceptorProvider];
