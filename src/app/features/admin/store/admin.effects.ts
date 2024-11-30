@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 
 import { ILoginReq, ILoginRes, IRegisterReq } from '@app/interfaces';
 import { AuthApiService } from '@app/services';
@@ -14,6 +15,7 @@ export class AdminEffects {
     readonly #actions$: Actions = inject(Actions);
     readonly #authApiService: AuthApiService = inject(AuthApiService);
     readonly #localStorage: Storage = inject(LOCAL_STORAGE);
+    readonly #messageService: MessageService = inject(MessageService);
 
     public login$ = createEffect(() =>
         this.#actions$.pipe(
@@ -21,8 +23,18 @@ export class AdminEffects {
             switchMap((req: ILoginReq) => this.#authApiService.login(req).pipe(catchError(() => of(null)))),
             map((res: ILoginRes | null) => {
                 if (res === null) {
+                    this.#messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'We could not log in'
+                    });
                     return AdminActions.loginError();
                 }
+                this.#messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'You have logged in'
+                });
                 this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
                 return AdminActions.loginSuccess();
             })
