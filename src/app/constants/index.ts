@@ -1,3 +1,5 @@
+export * from './primeng'
+
 export enum ROLE {
     ADMIN = 'admin',
     SUPERADMIN = 'sumeradmin'
