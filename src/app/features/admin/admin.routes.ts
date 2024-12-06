@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AdminPageComponent } from './admin-page.component';
 
 export enum ADMIN_ROUTE_NAMES {
+    PARENT = 'admin',
     LOGIN = 'login',
     REGISTER = 'register',
     CMS = 'cms'

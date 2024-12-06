@@ -1,5 +1,5 @@
 // API
-export * from './api/register-req.interface';
-export * from './api/login-req.interface';
+export * from './api/register.interface';
+export * from './api/login.interface';
 
 export * from './user.interface';
