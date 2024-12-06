@@ -18,7 +18,7 @@ export const adminReducer = createReducer(
             auth: false
         };
     }),
-    on(AdminActions.logoutSuccess, (state) => {
+    on(AdminActions.logoutUserSuccess, (state) => {
         return {
             ...state,
             auth: false

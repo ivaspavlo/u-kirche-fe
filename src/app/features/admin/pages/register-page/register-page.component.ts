@@ -26,6 +26,6 @@ export class RegisterPageComponent {
             password: this.password,
             role: ROLE.ADMIN
         };
-        this.#store.dispatch(AdminActions.register(req));
+        this.#store.dispatch(AdminActions.registerUser(req));
     }
 }
