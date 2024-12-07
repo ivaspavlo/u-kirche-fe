@@ -1,8 +1,10 @@
 export type TRole = 'admin' | 'superadmin';
 
 export interface IUser {
-    uid: string;
+    id: string;
+    name: string;
     email: string;
-    password: string;
     role: TRole;
+    updatedAt: number;
+    createdAt: number;
 }

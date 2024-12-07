@@ -5,8 +5,8 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 
-import { ILoginReq, ILoginRes, IRegisterReq } from '@app/interfaces';
-import { AuthApiService } from '@app/services';
+import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
+import { AuthApiService, UserApiService } from '@app/services';
 import { KEYS } from '@app/constants';
 import { LOCAL_STORAGE } from '@app/services/providers';
 import { AdminActions } from './admin.actions';
@@ -17,12 +17,13 @@ export class AdminEffects {
     readonly #actions$: Actions = inject(Actions);
     readonly #router: Router = inject(Router);
     readonly #authApiService: AuthApiService = inject(AuthApiService);
+    readonly #userApiService: UserApiService = inject(UserApiService);
     readonly #localStorage: Storage = inject(LOCAL_STORAGE);
     readonly #messageService: MessageService = inject(MessageService);
 
     public login$ = createEffect(() =>
         this.#actions$.pipe(
-            ofType(AdminActions.login),
+            ofType(AdminActions.loginUser),
             switchMap((req: ILoginReq) => this.#authApiService.login(req).pipe(catchError(() => of(null)))),
             map((res: ILoginRes | null) => {
                 if (res === null) {
@@ -31,7 +32,7 @@ export class AdminEffects {
                         summary: 'Error',
                         detail: 'We could not log you in'
                     });
-                    return AdminActions.loginError();
+                    return AdminActions.loginUserError();
                 }
                 this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
                 this.#messageService.add({
@@ -41,7 +42,7 @@ export class AdminEffects {
                 });
                 this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
 
-                return AdminActions.loginSuccess();
+                return AdminActions.loginUserSuccess();
             })
         )
     );
@@ -62,12 +63,28 @@ export class AdminEffects {
             switchMap((req: IRegisterReq) => {
                 return this.#authApiService.register(req).pipe(catchError(() => of(null)));
             }),
-            map((res: object | null) => {
+            map((res: IUser | null) => {
                 if (res === null) {
                     this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`);
-                    return AdminActions.registerUserSuccess();
+                    return AdminActions.registerUserError();
                 }
-                return AdminActions.registerUserError();
+                return AdminActions.registerUserSuccess();
+            })
+        )
+    );
+
+    public getUser$ = createEffect(() =>
+        this.#actions$.pipe(
+            ofType(AdminActions.getUser),
+            switchMap(() => {
+                debugger;
+                return this.#userApiService.getUser().pipe(catchError(() => of(null)));
+            }),
+            map((res: IUser | null) => {
+                if (res === null) {
+                    return AdminActions.getUserError();
+                }
+                return AdminActions.getUserSuccess(res);
             })
         )
     );

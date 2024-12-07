@@ -1,15 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AdminActions } from '../../store/admin.actions';
+
 import { ROLE } from '@app/constants';
+import { AdminActions } from '../../store/admin.actions';
 
 @Component({
     selector: 'app-register-page',
     standalone: true,
     imports: [FormsModule],
     templateUrl: './register-page.component.html',
-    styleUrl: './register-page.component.scss'
+    styleUrl: './register-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterPageComponent {
     readonly #store: Store = inject(Store);

@@ -4,9 +4,9 @@ import { ILoginReq, IRegisterReq, IUser } from '@app/interfaces';
 export const AdminActions = createActionGroup({
     source: 'admin',
     events: {
-        Login: props<ILoginReq>(),
-        'Login Success': emptyProps(),
-        'Login Error': emptyProps(),
+        'Login User': props<ILoginReq>(),
+        'Login User Success': emptyProps(),
+        'Login User Error': emptyProps(),
         'Register User': props<IRegisterReq>(),
         'Register User Success': emptyProps(),
         'Register User Error': emptyProps(),

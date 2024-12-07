@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { API_URL } from '@env/environment';
-import { ILoginReq, IRegisterReq } from '@app/interfaces';
+import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -11,13 +11,11 @@ import { ILoginReq, IRegisterReq } from '@app/interfaces';
 export class AuthApiService {
     #http: HttpClient = inject(HttpClient);
 
-    constructor() {}
-
     public login({ email, password }: ILoginReq): Observable<any> {
-        return this.#http.post<unknown>(`${API_URL}/auth/login`, { email, password });
+        return this.#http.post<ILoginRes>(`${API_URL}/auth/login`, { email, password });
     }
 
-    public register(req: IRegisterReq): Observable<any> {
-        return this.#http.post<unknown>(`${API_URL}/account`, req);
+    public register(req: IRegisterReq): Observable<IUser> {
+        return this.#http.post<IUser>(`${API_URL}/account`, req);
     }
 }
