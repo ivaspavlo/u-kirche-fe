@@ -11,7 +11,7 @@ export enum ADMIN_ROUTE_NAMES {
 export const ADMIN_ROUTES: Routes = [
     {
         path: '',
-        component: AdminPageComponent,
+        loadComponent: () => import('./admin-page.component').then((m) => m.AdminPageComponent),
         children: [
             {
                 path: '',

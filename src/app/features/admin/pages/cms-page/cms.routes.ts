@@ -6,8 +6,14 @@ export enum CMS_ROUTE_NAMES {
 
 export const CMS_ROUTES: Routes = [
     {
-        path: CMS_ROUTE_NAMES.ARTICLES,
-        loadComponent: () =>
-            import('./pages/articles-page/articles-page.component').then((m) => m.ArticlesPageComponent)
+        path: '',
+        loadComponent: () => import('./cms-page.component').then((m) => m.CmsPageComponent),
+        children: [
+            {
+                path: CMS_ROUTE_NAMES.ARTICLES,
+                loadComponent: () => import('./pages/articles-page/articles-page.component').then((m) => m.ArticlesPageComponent)
+            }
+        ]
+
     }
 ];

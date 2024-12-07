@@ -23,9 +23,9 @@ export class LoginPageComponent {
 
     public onLogin(): void {
         this.#store.dispatch(
-            AdminActions.login({
-                email: this.email,
-                password: this.password
+            AdminActions.loginUser({
+                email: this.email || 'samoran4ez12@gmail.com',
+                password: this.password || 'huan_antonio'
             })
         );
     }
