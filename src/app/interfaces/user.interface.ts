@@ -1,10 +1,10 @@
-export type TRole = 'admin' | 'superadmin';
+import { ROLE } from "@app/constants";
 
 export interface IUser {
     id: string;
     name: string;
     email: string;
-    role: TRole;
+    role: ROLE;
     updatedAt: number;
     createdAt: number;
 }

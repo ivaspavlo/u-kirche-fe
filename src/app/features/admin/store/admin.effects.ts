@@ -34,13 +34,14 @@ export class AdminEffects {
                     });
                     return AdminActions.loginUserError();
                 }
-                this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
                 this.#messageService.add({
                     severity: 'success',
                     summary: 'Success',
                     detail: 'You have logged in'
                 });
                 this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
+
+                this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
 
                 return AdminActions.loginUserSuccess();
             })
@@ -52,6 +53,7 @@ export class AdminEffects {
             ofType(AdminActions.logoutUser),
             map(() => {
                 this.#localStorage.removeItem(KEYS.ACCESS_TOKEN);
+                this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`);
                 return AdminActions.logoutUserSuccess();
             })
         )
@@ -77,7 +79,6 @@ export class AdminEffects {
         this.#actions$.pipe(
             ofType(AdminActions.getUser),
             switchMap(() => {
-                debugger;
                 return this.#userApiService.getUser().pipe(catchError(() => of(null)));
             }),
             map((res: IUser | null) => {

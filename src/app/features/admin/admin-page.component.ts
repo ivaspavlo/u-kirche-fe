@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -6,6 +6,9 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [RouterOutlet],
     templateUrl: './admin-page.component.html',
-    styleUrl: './admin-page.component.scss'
+    styleUrl: './admin-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminPageComponent {}
+export class AdminPageComponent {
+    
+}

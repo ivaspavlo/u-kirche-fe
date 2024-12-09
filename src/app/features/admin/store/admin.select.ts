@@ -5,8 +5,6 @@ import { IAdminState } from './admin.state';
 
 export const selectAdminState = createFeatureSelector<IAdminState>(ADMIN_FEATURE_KEY);
 
-export const isAuth = createSelector(selectAdminState, (adminState: IAdminState) => adminState.auth);
-
 export const selectUser = createSelector(selectAdminState, (adminState: IAdminState) => adminState.user);
 
 // Call state

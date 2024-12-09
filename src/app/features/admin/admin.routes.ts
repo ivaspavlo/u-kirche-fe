@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { AdminPageComponent } from './admin-page.component';
+import { authGuard, roleGuard } from '@app/services/guards';
+import { ROLE } from '@app/constants';
 
 export enum ADMIN_ROUTE_NAMES {
     PARENT = 'admin',
@@ -24,11 +25,13 @@ export const ADMIN_ROUTES: Routes = [
             },
             {
                 path: ADMIN_ROUTE_NAMES.REGISTER,
+                canActivate: [authGuard, roleGuard([ROLE.SUPERADMIN])],
                 loadComponent: () =>
                     import('./pages/register-page/register-page.component').then((m) => m.RegisterPageComponent)
             },
             {
                 path: ADMIN_ROUTE_NAMES.CMS,
+                canActivate: [authGuard],
                 loadChildren: () => import('./pages/cms-page/cms.routes').then((m) => m.CMS_ROUTES)
             }
         ]
