@@ -9,9 +9,9 @@ export const ADMIN_FEATURE_KEY = 'admin';
 export const adminReducer = createReducer(
     adminInitialState,
     on(
-        AdminActions.getUser,
         AdminActions.loginUser,
         AdminActions.registerUser,
+        AdminActions.getUser,
         (state) => {
             return {
                 ...state,
@@ -19,19 +19,16 @@ export const adminReducer = createReducer(
             }
         }
     ),
-    on(AdminActions.loginUserSuccess, (state) => {
-        return {
-            ...state,
-            auth: true,
-            callState: CallState.LOADED
-        };
-    }),
-    on(AdminActions.logoutUserSuccess, (state) => {
-        return {
-            ...state,
-            auth: false
-        };
-    }),
+    on(
+        AdminActions.loginUserSuccess,
+        AdminActions.logoutUserSuccess,
+        (state) => {
+            return {
+                ...state,
+                callState: CallState.LOADED
+            };
+        }
+    ),
     on(AdminActions.getUserSuccess, (state, user: IUser) => {
         return {
             ...state,
@@ -41,6 +38,7 @@ export const adminReducer = createReducer(
     }),
     on(
         AdminActions.loginUserError,
+        AdminActions.registerUserError,
         AdminActions.getUserError,
         (state) => {
         return {

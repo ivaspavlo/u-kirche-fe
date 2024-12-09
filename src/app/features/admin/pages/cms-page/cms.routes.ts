@@ -14,6 +14,5 @@ export const CMS_ROUTES: Routes = [
                 loadComponent: () => import('./pages/articles-page/articles-page.component').then((m) => m.ArticlesPageComponent)
             }
         ]
-
     }
 ];
