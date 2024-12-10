@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '@app/services/guards';
 
 export enum CMS_ROUTE_NAMES {
     ARTICLES = 'articles'
@@ -7,6 +8,7 @@ export enum CMS_ROUTE_NAMES {
 export const CMS_ROUTES: Routes = [
     {
         path: '',
+        canActivate: [authGuard],
         loadComponent: () => import('./cms-page.component').then((m) => m.CmsPageComponent),
         children: [
             {

@@ -11,23 +11,30 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
+import { API_URL } from '@env/environment';
 import { AdminActions } from '@app/features/admin';
 import { KEYS } from '@app/constants';
 import { LOCAL_STORAGE } from '.';
+
+const NO_AUTH_URLS = ['/auth/login', '/auth/register'];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     readonly #localStorage: Storage = inject(LOCAL_STORAGE) as Storage;
     readonly #store: Store = inject(Store);
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.#localStorage.getItem(KEYS.ACCESS_TOKEN);
 
-        if (token) {
-            request = this.addToken(request, token);
+        const url = req.url.split(API_URL)[1];
+
+        console.log(url, NO_AUTH_URLS.includes(url))
+
+        if (token && !NO_AUTH_URLS.includes(url)) {
+            req = this.addToken(req, token);
         }
 
-        return next.handle(request).pipe(
+        return next.handle(req).pipe(
             catchError((err: any) => {
                 if (err instanceof HttpErrorResponse && err.status === 401) {
                     this.#store.dispatch(AdminActions.logoutUser());
@@ -37,8 +44,8 @@ export class AuthInterceptor implements HttpInterceptor {
         );
     }
 
-    private addToken<T>(request: HttpRequest<T>, token: any): HttpRequest<T> {
-        return request.clone({
+    private addToken<T>(req: HttpRequest<T>, token: any): HttpRequest<T> {
+        return req.clone({
             setHeaders: { Authorization: `Bearer ${token}` }
         });
     }

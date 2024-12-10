@@ -3,6 +3,7 @@ import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 
 import * as adminState from './features/admin';
+import * as homeState from './features/home';
 
 export enum CORE_ROUTE_NAMES {
     HOME = 'home',
@@ -15,6 +16,10 @@ export const CORE_ROUTES: Routes = [
         children: [
             {
                 path: CORE_ROUTE_NAMES.HOME,
+                providers: [
+                    provideState(homeState.HOME_FEATURE_KEY, homeState.reducer),
+                    provideEffects([homeState.HomeEffects])
+                ],
                 loadChildren: () => import('./features/home/home.routes').then((m) => m.HOME_ROUTES)
             },
             {

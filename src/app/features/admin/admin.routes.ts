@@ -31,7 +31,7 @@ export const ADMIN_ROUTES: Routes = [
             },
             {
                 path: ADMIN_ROUTE_NAMES.CMS,
-                canActivate: [authGuard],
+                canActivate: [authGuard(), roleGuard([ROLE.SUPERADMIN])],
                 loadChildren: () => import('./pages/cms-page/cms.routes').then((m) => m.CMS_ROUTES)
             }
         ]
