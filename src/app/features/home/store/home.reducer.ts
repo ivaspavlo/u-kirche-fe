@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { CallState } from '@app/constants';
 import { homeInitialState, IHomeState } from './home.state';
 import { HomeActions } from './home.actions';
+import { IContent } from '@app/interfaces';
 
 export const HOME_FEATURE_KEY = 'home';
 
@@ -18,9 +19,10 @@ export const homeReducer = createReducer(
     ),
     on(
         HomeActions.getContentSuccess,
-        (state) => {
+        (state, value: IContent) => {
             return {
                 ...state,
+                content: value,
                 callState: CallState.LOADED
             };
         }

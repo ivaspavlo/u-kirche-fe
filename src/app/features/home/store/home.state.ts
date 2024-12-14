@@ -1,7 +1,8 @@
 import { CallState, ICallState } from '@app/constants';
+import { IContent } from '@app/interfaces';
 
 export interface IHomeState extends ICallState {
-    content: any | null;
+    content: IContent | null;
 }
 
 export const homeInitialState: IHomeState = {

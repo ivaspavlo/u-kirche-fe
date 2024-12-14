@@ -3,14 +3,15 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { API_URL } from '@env/environment';
+import { IContent } from '@app/interfaces';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ContentApiService {
-    #http: HttpClient = inject(HttpClient);
+    readonly #http: HttpClient = inject(HttpClient);
 
-    public getContent(): Observable<any> {
-        return this.#http.get<any>(`${API_URL}/content`);
+    public getContent(): Observable<IContent> {
+        return this.#http.get<IContent>(`${API_URL}/content`);
     }
 }
