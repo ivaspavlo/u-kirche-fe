@@ -4,12 +4,12 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import { provideAnimations } from '@angular/platform-browser/animations'
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { CORE_ROUTES } from './app.routes';
 import { CORE_PROVIDERS } from './services/providers';
 import { PRIME_NG_GLOBAL_SERVICES } from './constants/primeng';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader =
     (http: HttpClient) => new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -25,9 +25,9 @@ export const appConfig: ApplicationConfig = {
               deps: [HttpClient]
             },
         })]),
-        provideAnimations(),
         provideRouter(CORE_ROUTES, withComponentInputBinding()),
         provideHttpClient(withInterceptorsFromDi()),
+        provideAnimations(),
         provideStore(),
         provideEffects()
     ]
