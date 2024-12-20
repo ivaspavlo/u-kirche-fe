@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { Store } from '@ngrx/store';
 import { DialogModule } from 'primeng/dialog';
 import { HomeActions } from './store/home.actions';
+import { MeetDialogComponent } from './components/meet-dialog/meet-dialog.component';
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
-    imports: [DialogModule],
+    imports: [DialogModule, MeetDialogComponent],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
