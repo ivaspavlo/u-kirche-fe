@@ -1,32 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { PRIME_NG_GLOBAL_MODULES } from './constants/primeng';
+
+import { LANGUAGE, PRIME_NG_GLOBAL_MODULES } from './constants';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [...PRIME_NG_GLOBAL_MODULES, RouterOutlet, TranslatePipe],
+    imports: [...PRIME_NG_GLOBAL_MODULES, RouterOutlet],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent {
-    constructor(private translate: TranslateService, public primeNGConfig: PrimeNGConfig) {
-        this.translate.addLangs(['ua', 'en']);
-        this.translate.setDefaultLang('en');
+export class AppComponent implements OnInit {
+    readonly #translateService: TranslateService = inject(TranslateService);
+    readonly #primeNGConfig: PrimeNGConfig = inject(PrimeNGConfig);
 
-        const browserLang = translate.getBrowserLang();
-        const lang = browserLang?.match(/en|ua/) ? browserLang : 'en';
-
-        this.translate.use(lang);
-
-        this.translate.stream('primeng').subscribe(data => {
-            this.primeNGConfig.setTranslation(data);
-        });
+    ngOnInit(): void {
+        this.#initLanguage();
     }
 
-    public useLanguage(value: string): void {
-        this.translate.use(value);
+    #initLanguage(): void {
+        this.#translateService.addLangs([LANGUAGE.UA, LANGUAGE.DE]);
+        this.#translateService.setDefaultLang(LANGUAGE.UA);
+
+        const browserLang = this.#translateService.getBrowserLang();
+        const lang = browserLang?.match(/de|ua/) ? browserLang : LANGUAGE.DE;
+
+        this.#translateService.use(lang);
+
+        this.#translateService.stream('primeng').subscribe(data => this.#primeNGConfig.setTranslation(data));
     }
 }

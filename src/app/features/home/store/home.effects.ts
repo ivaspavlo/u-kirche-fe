@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
 
 import { ContentApiService } from '@app/services';
-import { IContent } from '@app/interfaces';
+import { IContent, IMeetReq, IMeetRes } from '@app/interfaces';
 import { HomeActions } from './home.actions';
 
 @Injectable()
@@ -21,6 +21,19 @@ export class HomeEffects {
                     return HomeActions.getContentError();
                 }
                 return HomeActions.getContentSuccess(res);
+            })
+        )
+    );
+
+    public sendMeetForm$ = createEffect(() =>
+        this.#actions$.pipe(
+            ofType(HomeActions.sendMeetForm),
+            switchMap((value: IMeetReq) => this.#contentApiService.meet(value).pipe(catchError(() => of(null)))),
+            map((res: IMeetRes | null) => {
+                if (res === null) {
+                    return HomeActions.sendMeetFormError();
+                }
+                return HomeActions.sendMeetFormSuccess(res);
             })
         )
     );

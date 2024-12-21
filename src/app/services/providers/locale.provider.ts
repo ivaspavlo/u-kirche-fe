@@ -8,7 +8,7 @@ export const localeProvider: FactoryProvider = {
     useFactory: (): LANGUAGE => {
         const browserLanguage = navigator?.language;
         if (!browserLanguage || typeof browserLanguage !== 'string' || browserLanguage.indexOf('-') === -1) {
-            return LANGUAGE.EN;
+            return LANGUAGE.DE;
         }
         const locale = navigator.language.split('-')[0];
         // @ts-ignore
