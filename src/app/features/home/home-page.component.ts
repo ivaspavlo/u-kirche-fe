@@ -1,19 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogModule } from 'primeng/dialog';
-import { HomeActions } from './store/home.actions';
-import { MeetDialogComponent } from './components/meet-dialog/meet-dialog.component';
+import { RecaptchaV3Module } from 'ng-recaptcha';
+
+import { IMeetReq } from '@app/interfaces';
+import { HomeActions } from './store';
+import { MeetDialogComponent } from './components';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
-    imports: [DialogModule, MeetDialogComponent],
+    imports: [DialogModule, MeetDialogComponent, RecaptchaV3Module, TranslatePipe],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent implements OnInit {
     readonly #store: Store = inject(Store);
+    readonly #translateService: TranslateService = inject(TranslateService);
 
     public visible: boolean = false;
 
@@ -21,7 +26,16 @@ export class HomePageComponent implements OnInit {
         this.#store.dispatch(HomeActions.getContent());
     }
 
-    public onInvite(): void {
+    public onShowMeetDialog(): void {
         this.visible = !this.visible;
+    }
+
+    public onSubmitMeetForm(value: IMeetReq): void {
+        this.#store.dispatch(HomeActions.sendMeetForm(value));
+        this.visible = false;
+    }
+
+    public useLanguage(value: string): void {
+        this.#translateService.use(value);
     }
 }

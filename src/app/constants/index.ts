@@ -1,5 +1,6 @@
 export * from './primeng'
 export * from './call-state';
+export * from './primeng';
 
 export enum ROLE {
     ADMIN = 'admin',
@@ -11,7 +12,6 @@ export enum KEYS {
 }
 
 export enum LANGUAGE {
-    EN = 'en',
     UA = 'ua',
     DE = 'de'
 }
