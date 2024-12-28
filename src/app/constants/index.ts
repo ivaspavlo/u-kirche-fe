@@ -13,5 +13,6 @@ export enum KEYS {
 
 export enum LANGUAGE {
     UA = 'ua',
-    DE = 'de'
+    DE = 'de',
+    RU = 'ru'
 }

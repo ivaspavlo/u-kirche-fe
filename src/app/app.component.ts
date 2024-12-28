@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
     }
 
     #initLanguage(): void {
-        this.#translateService.addLangs([LANGUAGE.UA, LANGUAGE.DE]);
+        this.#translateService.addLangs(Object.values(LANGUAGE));
         this.#translateService.setDefaultLang(LANGUAGE.UA);
 
         const browserLang = this.#translateService.getBrowserLang();
-        const lang = browserLang?.match(/de|ua/) ? browserLang : LANGUAGE.DE;
+        const lang = browserLang?.match(/de|ua|ru/) ? browserLang : LANGUAGE.DE;
 
         this.#translateService.use(lang);
 

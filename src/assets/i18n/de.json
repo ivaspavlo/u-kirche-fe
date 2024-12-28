@@ -1,5 +1,8 @@
 {
   "test": "test",
+  "ru": "Russische",
+  "ua": "Ukrainische",
+  "de": "Deutsch",
   "primeng": {
     "dayNamesMin": [
       "Su",
