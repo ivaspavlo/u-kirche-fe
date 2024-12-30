@@ -4,7 +4,7 @@ export interface IMeetReq {
   name: string;
   email: string;
   lang: LANGUAGE
-  phoneNumber?: string;
+  phone?: string;
   message?: string;
 }
 
