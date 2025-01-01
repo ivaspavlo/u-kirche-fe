@@ -5,6 +5,7 @@ import { IMeetReq } from '@app/interfaces';
 import { LANGUAGE } from '@app/constants';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SITE_KEY } from '@env/environment';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-meet-dialog',
@@ -35,14 +36,14 @@ export class MeetDialogComponent {
   }
 
   public onSubmitMeetForm(): void {
-    this.#recaptchaV3Service.execute('importantAction').subscribe(() => {
+    this.#recaptchaV3Service.execute('importantAction').pipe(first()).subscribe((recaptcha: string) => {
       this.submit.emit({
         email: 'ivashchenko.pavel@gmail.com',
         name: 'Pavlo Iv',
         message: 'lorem ipsum',
         phone: '+380632768463',
         lang: this.#translateService.instant(LANGUAGE.DE),
-        recaptcha: this.form.controls['recaptcha'].value
+        recaptcha
       });
     });
   }
