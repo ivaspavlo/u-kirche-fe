@@ -16,3 +16,7 @@ export enum LANGUAGE {
     DE = 'de',
     RU = 'ru'
 }
+
+export enum RE_CAPTCHA_ACTIONS {
+    MEET = '[MEET ME]'
+}
