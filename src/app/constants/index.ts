@@ -18,5 +18,5 @@ export enum LANGUAGE {
 }
 
 export enum RE_CAPTCHA_ACTIONS {
-    MEET = '[MEET ME]'
+    MEET = 'meet_me'
 }
