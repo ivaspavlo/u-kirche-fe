@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
@@ -12,12 +12,13 @@ import { LANGUAGE, PRIME_NG_GLOBAL_MODULES } from './constants';
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     readonly #translateService: TranslateService = inject(TranslateService);
     readonly #primeNGConfig: PrimeNGConfig = inject(PrimeNGConfig);
 
-    ngOnInit(): void {
-        this.#initLanguage();
+    constructor()
+    {
+        afterNextRender(() => this.#initLanguage());
     }
 
     #initLanguage(): void {

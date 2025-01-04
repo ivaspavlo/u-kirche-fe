@@ -8,9 +8,9 @@ import { MessageService } from 'primeng/api';
 import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
 import { AuthApiService, UserApiService } from '@app/services';
 import { KEYS } from '@app/constants';
-import { LOCAL_STORAGE } from '@app/services/providers';
 import { AdminActions } from './admin.actions';
 import { ADMIN_ROUTE_NAMES } from '../admin.routes';
+import { StorageService } from '@app/services/storage.service';
 
 @Injectable()
 export class AdminEffects {
@@ -18,7 +18,7 @@ export class AdminEffects {
     readonly #router: Router = inject(Router);
     readonly #authApiService: AuthApiService = inject(AuthApiService);
     readonly #userApiService: UserApiService = inject(UserApiService);
-    readonly #localStorage: Storage = inject(LOCAL_STORAGE);
+    readonly #storageService: StorageService = inject(StorageService);
     readonly #messageService: MessageService = inject(MessageService);
 
     public login$ = createEffect(() =>
@@ -39,7 +39,7 @@ export class AdminEffects {
                     summary: 'Success',
                     detail: 'You have logged in'
                 });
-                this.#localStorage.setItem(KEYS.ACCESS_TOKEN, res.jwt);
+                this.#storageService.setItem(KEYS.ACCESS_TOKEN, res.jwt);
 
                 this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
 
@@ -52,7 +52,7 @@ export class AdminEffects {
         this.#actions$.pipe(
             ofType(AdminActions.logoutUser),
             map(() => {
-                this.#localStorage.removeItem(KEYS.ACCESS_TOKEN);
+                this.#storageService.removeItem(KEYS.ACCESS_TOKEN);
                 this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`);
                 return AdminActions.logoutUserSuccess();
             })

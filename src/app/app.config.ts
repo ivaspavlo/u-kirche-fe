@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CORE_ROUTES } from './app.routes';
 import { CORE_PROVIDERS } from './services/providers';
 import { PRIME_NG_GLOBAL_SERVICES } from './constants/primeng';
+import { provideClientHydration } from '@angular/platform-browser';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader =
     (http: HttpClient) => new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -29,6 +30,6 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
         provideStore(),
-        provideEffects()
+        provideEffects(), provideClientHydration()
     ]
 };
