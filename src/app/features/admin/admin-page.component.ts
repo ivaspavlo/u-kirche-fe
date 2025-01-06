@@ -9,6 +9,4 @@ import { RouterOutlet } from '@angular/router';
     styleUrl: './admin-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminPageComponent {
-    
-}
+export class AdminPageComponent {}

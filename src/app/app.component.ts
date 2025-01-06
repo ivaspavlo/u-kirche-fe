@@ -16,8 +16,7 @@ export class AppComponent {
     readonly #translateService: TranslateService = inject(TranslateService);
     readonly #primeNGConfig: PrimeNGConfig = inject(PrimeNGConfig);
 
-    constructor()
-    {
+    constructor() {
         afterNextRender(() => this.#initLanguage());
     }
 
@@ -30,6 +29,6 @@ export class AppComponent {
 
         this.#translateService.use(lang);
 
-        this.#translateService.stream('primeng').subscribe(data => this.#primeNGConfig.setTranslation(data));
+        this.#translateService.stream('primeng').subscribe((data) => this.#primeNGConfig.setTranslation(data));
     }
 }

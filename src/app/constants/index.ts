@@ -1,4 +1,4 @@
-export * from './primeng'
+export * from './primeng';
 export * from './call-state';
 export * from './primeng';
 

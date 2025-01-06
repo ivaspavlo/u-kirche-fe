@@ -1,12 +1,12 @@
 export enum CallState {
-  INIT = 'INIT',
-  LOADING = 'LOADING',
-  LOADED = 'LOADED',
-  ERROR = 'ERROR'
-};
+    INIT = 'INIT',
+    LOADING = 'LOADING',
+    LOADED = 'LOADED',
+    ERROR = 'ERROR'
+}
 
 export interface ICallState {
-  callState: CallState
+    callState: CallState;
 }
 
 export const loadingState = (callState: CallState) => callState === CallState.LOADING;
