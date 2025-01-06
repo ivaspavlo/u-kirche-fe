@@ -8,28 +8,20 @@ export const HOME_FEATURE_KEY = 'home';
 
 export const homeReducer = createReducer(
     homeInitialState,
-    on(
-        HomeActions.getContent,
-        (state) => {
-            return {
-                ...state,
-                callState: CallState.LOADING
-            }
-        }
-    ),
-    on(
-        HomeActions.getContentSuccess,
-        (state, value: IContent) => {
-            return {
-                ...state,
-                content: value,
-                callState: CallState.LOADED
-            };
-        }
-    ),
-    on(
-        HomeActions.getContentError,
-        (state) => {
+    on(HomeActions.getContent, (state) => {
+        return {
+            ...state,
+            callState: CallState.LOADING
+        };
+    }),
+    on(HomeActions.getContentSuccess, (state, value: IContent) => {
+        return {
+            ...state,
+            content: value,
+            callState: CallState.LOADED
+        };
+    }),
+    on(HomeActions.getContentError, (state) => {
         return {
             ...state,
             callState: CallState.ERROR

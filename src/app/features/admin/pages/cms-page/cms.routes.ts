@@ -13,7 +13,8 @@ export const CMS_ROUTES: Routes = [
         children: [
             {
                 path: CMS_ROUTE_NAMES.ARTICLES,
-                loadComponent: () => import('./pages/articles-page/articles-page.component').then((m) => m.ArticlesPageComponent)
+                loadComponent: () =>
+                    import('./pages/articles-page/articles-page.component').then((m) => m.ArticlesPageComponent)
             }
         ]
     }

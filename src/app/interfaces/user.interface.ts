@@ -1,4 +1,4 @@
-import { ROLE } from "@app/constants";
+import { ROLE } from '@app/constants';
 
 export interface IUser {
     id: string;

@@ -8,27 +8,18 @@ export const ADMIN_FEATURE_KEY = 'admin';
 
 export const adminReducer = createReducer(
     adminInitialState,
-    on(
-        AdminActions.loginUser,
-        AdminActions.registerUser,
-        AdminActions.getUser,
-        (state) => {
-            return {
-                ...state,
-                callState: CallState.LOADING
-            }
-        }
-    ),
-    on(
-        AdminActions.loginUserSuccess,
-        AdminActions.logoutUserSuccess,
-        (state) => {
-            return {
-                ...state,
-                callState: CallState.LOADED
-            };
-        }
-    ),
+    on(AdminActions.loginUser, AdminActions.registerUser, AdminActions.getUser, (state) => {
+        return {
+            ...state,
+            callState: CallState.LOADING
+        };
+    }),
+    on(AdminActions.loginUserSuccess, AdminActions.logoutUserSuccess, (state) => {
+        return {
+            ...state,
+            callState: CallState.LOADED
+        };
+    }),
     on(AdminActions.getUserSuccess, (state, user: IUser) => {
         return {
             ...state,
@@ -36,11 +27,7 @@ export const adminReducer = createReducer(
             callState: CallState.LOADED
         };
     }),
-    on(
-        AdminActions.loginUserError,
-        AdminActions.registerUserError,
-        AdminActions.getUserError,
-        (state) => {
+    on(AdminActions.loginUserError, AdminActions.registerUserError, AdminActions.getUserError, (state) => {
         return {
             ...state,
             callState: CallState.ERROR

@@ -10,6 +10,6 @@ export const HomeActions = createActionGroup({
         'Get Content Error': emptyProps(),
         'Send Meet Form': props<IMeetReq>(),
         'Send Meet Form Success': props<IMeetRes>(),
-        'Send Meet Form Error': emptyProps(),
+        'Send Meet Form Error': emptyProps()
     }
 });
