@@ -13,7 +13,7 @@
     "deploy:dev": "npm run build:dev && firebase deploy --only hosting",
     "deploy:prod": "npm run build:prod && firebase deploy --only hosting --project prod",
     "serve:ssr:u-kirche": "node dist/u-kirche/server/server.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "npx playwright test"
   },
   "private": true,
   "dependencies": {

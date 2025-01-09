@@ -50,3 +50,6 @@ src/assets/config/firebase*.config.ts
 # Folders used by ESLint
 .nx/cache
 .nx/workspace-data
+
+# e2e test results
+/tests/output
