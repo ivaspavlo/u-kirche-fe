@@ -1,0 +1,44 @@
+@function stripUnit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@function rem($pxValue) {
+    @return #{stripUnit($pxValue) / stripUnit(16px)}rem;
+}
+
+@mixin bg-img($img: '', $bg-repeat: no-repeat, $bg-pos: center, $bg-color: transparent, $bg-size: cover) {
+    @if $img != '' {
+        background-image: url('#{$img}');
+    }
+
+    background-size: $bg-size;
+    background-repeat: $bg-repeat;
+    background-position: $bg-pos;
+    background-color: $bg-color;
+}
+
+// Breakpoints are set according to PrimeFlex specification
+
+@mixin sm {
+    @media only screen and (min-width: map-get(576px, 'sm')) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media only screen and (min-width: map-get(768px, 'md')) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media only screen and (min-width: map-get(992px, 'lg')) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media only screen and (min-width: map-get(1200px, 'xl')) {
+        @content;
+    }
+}
