@@ -7,7 +7,7 @@
 }
 
 @mixin bg-img($img: '', $bg-repeat: no-repeat, $bg-pos: center, $bg-color: transparent, $bg-size: cover) {
-    @if $img != '' {
+    @if $img !='' {
         background-image: url('#{$img}');
     }
 
@@ -17,28 +17,34 @@
     background-color: $bg-color;
 }
 
-// Breakpoints are set according to PrimeFlex specification
+// Breakpoints are taken from PrimeFlex
 
 @mixin sm {
-    @media only screen and (min-width: map-get(576px, 'sm')) {
+    @media only screen and (min-width: map-get($sm, 'sm')) {
         @content;
     }
 }
 
 @mixin md {
-    @media only screen and (min-width: map-get(768px, 'md')) {
+    @media only screen and (min-width: map-get($md, 'md')) {
         @content;
     }
 }
 
 @mixin lg {
-    @media only screen and (min-width: map-get(992px, 'lg')) {
+    @media only screen and (min-width: map-get($lg, 'lg')) {
         @content;
     }
 }
 
 @mixin xl {
-    @media only screen and (min-width: map-get(1200px, 'xl')) {
+    @media only screen and (min-width: map-get($xl, 'xl')) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media only screen and (min-width: map-get($xxl, 'xl')) {
         @content;
     }
 }
