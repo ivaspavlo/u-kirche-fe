@@ -12,3 +12,7 @@
 <p-dialog [(visible)]="visible" [modal]="true" [draggable]="false" [style]="{ width: '30rem' }" footerTemplate="footer">
     <app-meet-dialog (submit)="onSubmitMeetForm($event)"></app-meet-dialog>
 </p-dialog>
+
+@if (isBrowser) {
+<full-calendar [options]="calendarOptions"></full-calendar>
+}
