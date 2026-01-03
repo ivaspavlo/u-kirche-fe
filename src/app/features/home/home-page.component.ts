@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { DialogModule } from 'primeng/dialog';
-import { RecaptchaV3Module } from 'ng-recaptcha';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
@@ -11,12 +11,10 @@ import ukLocale from '@fullcalendar/core/locales/uk';
 import { IMeetReq } from '@app/interfaces';
 import { HomeActions } from './store';
 import { MeetDialogComponent } from './components';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'app-home-page',
-    standalone: true,
-    imports: [DialogModule, MeetDialogComponent, RecaptchaV3Module, TranslatePipe, FullCalendarModule],
+    imports: [DialogModule, MeetDialogComponent, TranslatePipe, FullCalendarModule],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -6,7 +6,6 @@ export interface IMeetReq {
     lang: LANGUAGE;
     phone?: string;
     message?: string;
-    recaptcha: string;
 }
 
 export interface IMeetRes {

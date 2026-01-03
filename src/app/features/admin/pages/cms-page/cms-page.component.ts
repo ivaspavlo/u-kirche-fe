@@ -9,7 +9,6 @@ import { selectUser } from '../../store/admin.select';
 
 @Component({
     selector: 'app-cms-page',
-    standalone: true,
     imports: [AsyncPipe, JsonPipe],
     templateUrl: './cms-page.component.html',
     styleUrl: './cms-page.component.scss',
