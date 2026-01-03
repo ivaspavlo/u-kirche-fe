@@ -1,7 +1,7 @@
 import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 
 import { LANGUAGE, PRIME_NG_GLOBAL_MODULES } from './constants';
 
@@ -14,7 +14,7 @@ import { LANGUAGE, PRIME_NG_GLOBAL_MODULES } from './constants';
 })
 export class AppComponent {
     readonly #translateService: TranslateService = inject(TranslateService);
-    readonly #primeNGConfig: PrimeNGConfig = inject(PrimeNGConfig);
+    readonly #primeNgConfig = inject(PrimeNG);
 
     constructor() {
         afterNextRender(() => this.#initLanguage());
@@ -29,6 +29,6 @@ export class AppComponent {
 
         this.#translateService.use(lang);
 
-        this.#translateService.stream('primeng').subscribe((data) => this.#primeNGConfig.setTranslation(data));
+        this.#translateService.stream('primeng').subscribe((res) => this.#primeNgConfig.setTranslation(res));
     }
 }
