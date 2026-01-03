@@ -7,7 +7,6 @@ import { LANGUAGE, PRIME_NG_GLOBAL_MODULES } from './constants';
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [...PRIME_NG_GLOBAL_MODULES, RouterOutlet],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'

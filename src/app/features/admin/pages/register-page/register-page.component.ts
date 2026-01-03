@@ -7,7 +7,6 @@ import { AdminActions } from '../../store/admin.actions';
 
 @Component({
     selector: 'app-register-page',
-    standalone: true,
     imports: [FormsModule],
     templateUrl: './register-page.component.html',
     styleUrl: './register-page.component.scss',

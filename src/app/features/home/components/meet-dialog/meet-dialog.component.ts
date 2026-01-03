@@ -8,7 +8,6 @@ import { SITE_KEY } from '@env/environment';
 
 @Component({
     selector: 'app-meet-dialog',
-    standalone: true,
     imports: [ReactiveFormsModule],
     templateUrl: './meet-dialog.component.html',
     styleUrl: './meet-dialog.component.scss',
