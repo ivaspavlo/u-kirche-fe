@@ -1,0 +1,22 @@
+@use 'mixins';
+
+.ddl {
+    display: flex;
+
+    &.p-select {
+        border: 0;
+        background-color: transparent;
+    }
+
+    // Make icon component smaller and change color
+    .p-select-dropdown {
+        width: 1rem;
+        color: var(--white);
+    }
+
+    // Adjust the size of the dropdown icon
+    .p-select-dropdown-icon {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+}

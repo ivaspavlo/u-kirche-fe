@@ -1,0 +1,113 @@
+<header class="header">
+    <div class="container">
+        <div class="header__content">
+            <button class="header__logo" type="button" aria-label="Home" title="Back to home">
+                <img src="assets/img/u-kirche-logo.svg" alt="u-kirche logo" class="header__logo-img" />
+            </button>
+
+            <nav class="header__buttons" role="navigation" aria-label="Main navigation">
+                @for (button of navButtons; track $index) {
+                    <button
+                        class="header__button"
+                        type="button"
+                        [attr.aria-label]="button.label"
+                        (click)="onNavButtonClick($index)"
+                        (keydown.enter)="onNavButtonClick($index)"
+                        (keydown.space)="onNavButtonClick($index)"
+                    >
+                        {{ 'header.' + button.label | translate }}
+                    </button>
+                }
+            </nav>
+
+            <div class="header__actions">
+                <p-select
+                    [(ngModel)]="selectedLanguage"
+                    (onChange)="onUseLanguage($event.value)"
+                    [options]="dropdownOptions"
+                    optionLabel="label"
+                    class="ddl"
+                >
+                    <ng-template let-item pTemplate="item">
+                        <span class="ddl__item">{{ item.label }}</span>
+                    </ng-template>
+                </p-select>
+
+                <p-button
+                    (click)="onDonate()"
+                    [label]="'header.donate' | translate"
+                    [outlined]="true"
+                    icon="pi pi-heart"
+                    type="button"
+                    size="large"
+                    class="header__donate"
+                ></p-button>
+
+                <app-hamburger (toggle)="onHamburgerToggle($event)" class="header__hamburger"></app-hamburger>
+
+                <p-dialog
+                    [modal]="true"
+                    [closeOnEscape]="true"
+                    [draggable]="false"
+                    [keepInViewport]="true"
+                    [showHeader]="false"
+                    [unstyled]="true"
+                    [(visible)]="isHamburgerMenuVisible"
+                >
+                    <div class="menu">
+                        <div class="menu__content">
+                            <img src="assets/img/mobile-menu-cross.svg" alt="Hamburger menu" class="menu__cross" />
+
+                            <ul class="menu__list">
+                                @for (button of navButtons; track $index) {
+                                    <li class="menu__item">
+                                        <button
+                                            class="header__button header__button--mobile"
+                                            type="button"
+                                            [attr.aria-label]="button.label"
+                                            (click)="onNavButtonClick($index)"
+                                            (keydown.enter)="onNavButtonClick($index)"
+                                            (keydown.space)="onNavButtonClick($index)"
+                                        >
+                                            {{ 'header.' + button.label | translate }}
+                                        </button>
+                                    </li>
+                                }
+                            </ul>
+
+                            <p-button
+                                (click)="onDonate()"
+                                [label]="'header.donate' | translate"
+                                [outlined]="true"
+                                [fluid]="true"
+                                icon="pi pi-heart"
+                                iconPos="left"
+                                type="button"
+                                size="large"
+                                class="header__donate--mobile"
+                            ></p-button>
+
+                            <div class="menu-social">
+                                <div class="menu-social__content">
+                                    @for (item of socialItems; track $index) {
+                                        <a [href]="item.url" target="_blank" rel="noopener noreferrer">
+                                            <p-button variant="text">
+                                                <ng-template #icon>
+                                                    <img
+                                                        alt="dropdown icon"
+                                                        [src]="item.img"
+                                                        class="menu-social__icon"
+                                                    />
+                                                </ng-template>
+                                            </p-button>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+</header>

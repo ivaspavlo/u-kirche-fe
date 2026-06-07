@@ -1,9 +1,12 @@
 {
-    "test": "test",
-    "ru": "Russische",
-    "ua": "Ukrainische",
-    "de": "Deutsch",
-    "primeng": {
-        "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-    }
+    "header": {
+        "news": "Nachrichten",
+        "schedule": "Zeitplan",
+        "about": "Über uns",
+        "contact": "Kontakte",
+        "donate": "Spenden"
+    },
+    "en": "Englisch",
+    "ua": "Ukrainisch",
+    "de": "Deutsch"
 }

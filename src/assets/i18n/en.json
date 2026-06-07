@@ -1,0 +1,12 @@
+{
+    "header": {
+        "news": "News",
+        "schedule": "Schedule",
+        "about": "About",
+        "contact": "Contacts",
+        "donate": "Donate"
+    },
+    "en": "English",
+    "ua": "Ukrainian",
+    "de": "German"
+}
