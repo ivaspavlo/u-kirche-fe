@@ -7,7 +7,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { SOCIAL_ITEMS } from '@app/constants';
 
-import { DropdownOptions, NavButtons } from './header.constant';
+import { LanguageOptions, NavButtons } from './header.constant';
 import { ILangDropdownOption } from './header.interfaces';
 import { HamburgerComponent } from '../hamburger/hamburger.component';
 
@@ -21,9 +21,9 @@ import { HamburgerComponent } from '../hamburger/hamburger.component';
 export class HeaderComponent {
     readonly #translateService: TranslateService = inject(TranslateService);
 
-    protected selectedLanguage = DropdownOptions[0];
+    protected selectedLanguage = LanguageOptions[0];
     protected navButtons = NavButtons;
-    protected dropdownOptions = DropdownOptions;
+    protected dropdownOptions = LanguageOptions;
     protected isHamburgerMenuVisible = false;
     protected socialItems = SOCIAL_ITEMS;
 
@@ -49,6 +49,6 @@ export class HeaderComponent {
     }
 
     #initSelectedLanguage(lang: string): void {
-        this.selectedLanguage = DropdownOptions.find((option) => option.value === lang) || DropdownOptions[0];
+        this.selectedLanguage = LanguageOptions.find((option) => option.value === lang) || LanguageOptions[0];
     }
 }

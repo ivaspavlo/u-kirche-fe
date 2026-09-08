@@ -6,7 +6,63 @@
         "contact": "Kontakte",
         "donate": "Spenden"
     },
+    "hero": {
+        "title": {
+            "first": "Ukrainische Orthodoxe Pfarrei der Heiligen",
+            "second": "Volodymyr und Olha"
+        },
+        "next-service": "Nächster Gottesdienst",
+        "how-to-find": "Wie finden Sie uns?",
+        "visit-us": "Besuchen Sie uns",
+        "schedule": "Zeitplan"
+    },
+    "location": {
+        "vienna": "Wien",
+        "graz": "Graz",
+        "address": {
+            "vienna": "Wien Adresse",
+            "graz": "Graz Adresse"
+        }
+    },
     "en": "Englisch",
     "ua": "Ukrainisch",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "weekdays": {
+        "sunday": "Sonntag",
+        "monday": "Montag",
+        "tuesday": "Dienstag",
+        "wednesday": "Mittwoch",
+        "thursday": "Donnerstag",
+        "friday": "Freitag",
+        "saturday": "Samstag"
+    },
+    "months": {
+        "january": "Januar",
+        "february": "Februar",
+        "march": "März",
+        "april": "April",
+        "may": "Mai",
+        "june": "Juni",
+        "july": "Juli",
+        "august": "August",
+        "september": "September",
+        "october": "Oktober",
+        "november": "November",
+        "december": "Dezember"
+    },
+    "months_genitive": {
+        "january": "Januar",
+        "february": "Februar",
+        "march": "März",
+        "april": "April",
+        "may": "Mai",
+        "june": "Juni",
+        "july": "Juli",
+        "august": "August",
+        "september": "September",
+        "october": "Oktober",
+        "november": "November",
+        "december": "Dezember"
+    },
+    "date_format_full": "{{day}}. {{month}}, {{weekday}} {{time}}"
 }

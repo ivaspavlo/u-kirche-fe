@@ -31,10 +31,10 @@ export function getInitialLang(): string {
 
 export function getInitialLangServer(): string {
     const request = inject(REQUEST, { optional: true });
-    if (!request) return LANGUAGE.DE;
-
-    const cookie = request.headers.get('cookie') ?? '';
-    const match = cookie.match(/lang=([^;]+)/);
+    console.log('[SSR] REQUEST:', request);
+    const cookieHeader = request?.headers.get('cookie') ?? '';
+    console.log('[SSR] Cookie:', cookieHeader);
+    const match = cookieHeader.match(/(?:^|;\s*)lang=([^;]+)/);
     return match?.[1] ?? LANGUAGE.DE;
 }
 
