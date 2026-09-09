@@ -9,7 +9,7 @@ export const NavButtons: IHeaderNavButton[] = [
 ];
 
 export const LanguageOptions: ILangDropdownOption[] = [
+    { label: LANGUAGE.UA.toUpperCase(), value: LANGUAGE.UA },
     { label: LANGUAGE.EN.toUpperCase(), value: LANGUAGE.EN },
-    { label: LANGUAGE.DE.toUpperCase(), value: LANGUAGE.DE },
-    { label: LANGUAGE.UA.toUpperCase(), value: LANGUAGE.UA }
+    { label: LANGUAGE.DE.toUpperCase(), value: LANGUAGE.DE }
 ];

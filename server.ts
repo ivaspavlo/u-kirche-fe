@@ -4,42 +4,42 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 export function app(): express.Express {
-  const server = express();
+    const server = express();
 
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
+    const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+    const browserDistFolder = resolve(serverDistFolder, '../browser');
 
-  const angularApp = new AngularNodeAppEngine();
+    const angularApp = new AngularNodeAppEngine();
 
-  server.get(
-    '*.*',
-    express.static(browserDistFolder, {
-      maxAge: '1y'
-    })
-  );
+    server.get(
+        '*.*',
+        express.static(browserDistFolder, {
+            maxAge: '1y'
+        })
+    );
 
-  server.use('*', (req, res, next) => {
-    angularApp
-      .handle(req)
-      .then((response) => {
-          if (response) {
-              writeResponseToNodeResponse(response, res);
-          } else {
-              next();
-          }
-      })
-      .catch(next);
-  });
+    server.use('*', (req, res, next) => {
+        angularApp
+            .handle(req)
+            .then((response) => {
+                if (response) {
+                    writeResponseToNodeResponse(response, res);
+                } else {
+                    next();
+                }
+            })
+            .catch(next);
+    });
 
-  return server;
+    return server;
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+    const port = process.env['PORT'] || 4000;
 
-  app().listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+    app().listen(port, () => {
+        console.log(`Node Express server listening on http://localhost:${port}`);
+    });
 }
 
 run();

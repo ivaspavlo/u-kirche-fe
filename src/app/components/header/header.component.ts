@@ -40,7 +40,6 @@ export class HeaderComponent {
     }
 
     protected onUseLanguage(option: ILangDropdownOption): void {
-        document.cookie = `lang=${option.value};path=/;max-age=31536000`;
         this.#translateService.use(option.value);
     }
 

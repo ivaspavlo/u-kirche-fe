@@ -1,58 +1,15 @@
-import {
-    EnvironmentProviders,
-    FactoryProvider,
-    inject,
-    InjectionToken,
-    provideAppInitializer,
-    REQUEST
-} from '@angular/core';
+import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LANGUAGE } from '@app/constants';
 
-export const INITIAL_LANG = new InjectionToken<string>('InitialLang');
-
-export function setLangCookie(lang: string): void {
-    document.cookie = `lang=${lang};path=/;max-age=31536000`;
-}
-
-export function getInitialLang(): string {
-    const translate = inject(TranslateService);
-
-    const existingLang = document.cookie.match(/lang=([^;]+)/)?.[1];
-    if (existingLang) return existingLang;
-
-    const browserLang = translate.getBrowserLang();
-    const lang = browserLang?.match(/de|ua|ru/) ? browserLang : LANGUAGE.DE;
-
-    setLangCookie(lang);
-
-    return lang;
-}
-
-export function getInitialLangServer(): string {
-    const request = inject(REQUEST, { optional: true });
-    console.log('[SSR] REQUEST:', request);
-    const cookieHeader = request?.headers.get('cookie') ?? '';
-    console.log('[SSR] Cookie:', cookieHeader);
-    const match = cookieHeader.match(/(?:^|;\s*)lang=([^;]+)/);
-    return match?.[1] ?? LANGUAGE.DE;
-}
+const DEFAULT_LANGUAGE = LANGUAGE.UA;
 
 const langInitializer: EnvironmentProviders = provideAppInitializer(() => {
     const translate = inject(TranslateService);
-    const initialLang = inject(INITIAL_LANG);
 
     translate.addLangs(Object.values(LANGUAGE));
-    translate.setDefaultLang(LANGUAGE.DE);
-    return translate.use(initialLang);
+    translate.setDefaultLang(DEFAULT_LANGUAGE);
+    return translate.use(DEFAULT_LANGUAGE);
 });
 
-export const langInit: (FactoryProvider | EnvironmentProviders)[] = [
-    langInitializer,
-    { provide: INITIAL_LANG, useFactory: getInitialLang }
-];
-
-export const langInitServer: (FactoryProvider | EnvironmentProviders)[] = [
-    langInitializer,
-    { provide: INITIAL_LANG, useFactory: getInitialLangServer }
-];
+export const langInit: EnvironmentProviders[] = [langInitializer];
