@@ -1,0 +1,172 @@
+@use 'mixins';
+
+:host {
+    position: fixed;
+    width: 100%;
+    z-index: var(--z-header);
+}
+
+.header {
+    margin: 1rem 0;
+    background: none;
+    display: flex;
+    justify-content: center;
+
+    &__content {
+        min-width: var(--header-min-width);
+        gap: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include mixins.lg {
+            gap: 1rem;
+        }
+    }
+
+    &__logo {
+        transition: var(--normal-transition) ease-in-out;
+        width: 4rem;
+        height: 4rem;
+        padding: 0;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        @include mixins.focus-visible;
+        @include mixins.lg {
+            width: 5rem;
+            height: 5rem;
+        }
+    }
+
+    &__logo-img {
+        height: 100%;
+        width: auto;
+    }
+
+    &__buttons {
+        gap: 2rem;
+        display: none;
+
+        @include mixins.lg {
+            display: flex;
+        }
+    }
+
+    &__button {
+        @include mixins.focus-visible;
+
+        transition: var(--normal-transition) ease-in-out;
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &--mobile {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        &:hover {
+            color: var(--accent-yellow);
+        }
+    }
+
+    &__donate {
+        display: flex;
+        flex-shrink: 0;
+
+        &--mobile {
+            width: 200px;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        @include mixins.lg {
+            gap: 1rem;
+        }
+    }
+
+    &__hamburger {
+        display: flex;
+        z-index: calc(var(--p-dialog-mask-z-index, 1101) + 1);
+
+        @include mixins.lg {
+            display: none;
+        }
+    }
+}
+
+.menu {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.9);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: auto;
+
+    &__cross {
+        width: 66px;
+        height: 90px;
+    }
+
+    &__content {
+        width: 100%;
+        min-height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 3rem;
+        gap: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        list-style-type: disc;
+    }
+
+    &__item {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+}
+
+.menu-social {
+    width: 100%;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+
+    &__content {
+        border-top: 1px solid var(--white);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+    }
+}

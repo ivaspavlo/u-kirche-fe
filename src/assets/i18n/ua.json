@@ -1,8 +1,70 @@
 {
-    "test": "тест",
+    "header": {
+        "news": "Новини",
+        "schedule": "Розклад",
+        "about": "Про нас",
+        "contact": "Контакти",
+        "donate": "Пожертва"
+    },
+    "hero": {
+        "title": {
+            "first": "Українська Православна Парафія Святих",
+            "second": "Володимира та Ольги"
+        },
+        "next-service": "Наступне богослужіння",
+        "how-to-find": "Як нас знайти?",
+        "visit-us": "Відвідайте нас",
+        "schedule": "Розклад"
+    },
+    "location": {
+        "vienna": "Відень",
+        "graz": "Грац",
+        "address": {
+            "vienna": "Адреса Відня",
+            "graz": "Адреса Грацу"
+        }
+    },
     "ru": "Російська",
     "ua": "Українська",
     "de": "Німецька",
+    "weekdays": {
+        "sunday": "Неділя",
+        "monday": "Понеділок",
+        "tuesday": "Вівторок",
+        "wednesday": "Середа",
+        "thursday": "Четвер",
+        "friday": "П'ятниця",
+        "saturday": "Субота"
+    },
+    "months": {
+        "january": "Січень",
+        "february": "Лютий",
+        "march": "Березень",
+        "april": "Квітень",
+        "may": "Травень",
+        "june": "Червень",
+        "july": "Липень",
+        "august": "Серпень",
+        "september": "Вересень",
+        "october": "Жовтень",
+        "november": "Листопад",
+        "december": "Грудень"
+    },
+    "months_genitive": {
+        "january": "січня",
+        "february": "лютого",
+        "march": "березня",
+        "april": "квітня",
+        "may": "травня",
+        "june": "червня",
+        "july": "липня",
+        "august": "серпня",
+        "september": "вересня",
+        "october": "жовтня",
+        "november": "листопада",
+        "december": "грудня"
+    },
+    "date_format_full": "{{day}} {{monthGenitive}}, {{weekday}} {{time}}",
     "primeng": {
         "dayNamesMin": ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
     }

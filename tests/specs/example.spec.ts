@@ -1,12 +1,21 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Example E2E Test', () => {
-  test('should navigate to the homepage and check the title', async ({ page }) => {
-    // Navigate to the application URL
-    await page.goto('http://localhost:4200');
+test.describe('language initialization', () => {
+    test('renders Ukrainian in the initial server response', async ({ request }) => {
+        const response = await request.get('/', {
+            headers: { cookie: 'lang=de' }
+        });
 
-    // Interact with the page (e.g., clicking a button, filling a form)
-    const h1 = page.locator('h1#title');
-    await expect(h1).toHaveText('u-kirche');
-  });
+        expect(response.ok()).toBeTruthy();
+        expect(await response.text()).toContain('Українська Православна Парафія Святих');
+    });
+
+    test('keeps Ukrainian after hydration despite a stored German language', async ({ page }) => {
+        await page.addInitScript(() => localStorage.setItem('lang', 'de'));
+        await page.goto('/');
+
+        await expect(page.locator('html')).toHaveAttribute('lang', 'ua');
+        await expect(page.locator('h1')).toContainText('Українська Православна Парафія Святих');
+        await expect(page.getByText('Новини', { exact: true }).first()).toBeVisible();
+    });
 });

@@ -1,0 +1,99 @@
+<section class="hero">
+    <video class="hero__video" autoplay muted loop>
+        <source src="/assets/videos/temp-video-bg.mp4" type="video/mp4" />
+    </video>
+
+    <div class="hero-desktop">
+        <img class="hero-desktop__cross" src="/assets/img/cross.svg" alt="Cross image" />
+
+        <h1 class="hero-desktop__title">
+            <span>{{ 'hero.title.first' | translate }}</span>
+            <span>{{ 'hero.title.second' | translate }}</span>
+        </h1>
+
+        <img class="hero-desktop__saints" src="/assets/img/u-kirche-saints.png" alt="Saints image" />
+
+        <div class="hero-info-block">
+            <h4 class="hero-info-block__title">
+                <i class="pi pi-bell" style="font-size: 1.5rem"></i>
+
+                <span>{{ 'hero.next-service' | translate }}</span>
+            </h4>
+
+            <div class="hero-info-block__content">
+                <div class="hero-location">
+                    <p-select
+                        [(ngModel)]="selectedLocation"
+                        (onChange)="onLocationSelect($event.value)"
+                        [options]="locations"
+                        optionLabel="label"
+                        class="ddl"
+                    >
+                        <ng-template #selectedItem let-selectedOption>
+                            <span class="ddl__item">{{ selectedOption.label | translate | titlecase }}</span>
+                        </ng-template>
+
+                        <ng-template let-item #item>
+                            <span class="ddl__item">{{ item.label | translate | titlecase }}</span>
+                        </ng-template>
+                    </p-select>
+
+                    <div class="hero-address">
+                        <div class="hero-address__group">
+                            <h5 class="hero-address__title">{{ selectedLocation.address | translate }}</h5>
+
+                            <h6 class="hero-address__title--de">{{ selectedLocation.addressDe }}</h6>
+                        </div>
+
+                        <p-button
+                            [label]="'hero.how-to-find' | translate"
+                            link
+                            icon="pi pi-map-marker"
+                            iconPos="right"
+                            class="link-button"
+                        ></p-button>
+                    </div>
+                </div>
+
+                <div class="hero-divider-container">
+                    <p-divider layout="horizontal" class="hero-divider hero-divider--horizontal" />
+    
+                    <p-divider layout="vertical" class="hero-divider hero-divider--vertical" />
+                </div>
+
+                <div class="hero-event">
+                    <h3 class="hero-event-date">
+                        <span>{{ dateTranslate.formatFull(currentDate) }}</span>
+
+                        <span class="hero-event-date__subtitle">{{ 'Event Name Extended' }}</span>
+                    </h3>
+
+                    <div class="hero-event-controls">
+                        <p-button
+                            [label]="'hero.schedule' | translate"
+                            link
+                            icon="pi pi-map-marker"
+                            iconPos="right"
+                            class="link-button"
+                        ></p-button>
+
+                        <p-button
+                            (onClick)="onVisitUsClick()"
+                            (keydown.enter)="onVisitUsClick()"
+                            (keydown.space)="onVisitUsClick()"
+                            [label]="'hero.visit-us' | translate"
+                            [outlined]="true"
+                            [fluid]="true"
+                            type="button"
+                            size="large"
+                        ></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-mobile">
+        
+    </div>
+</section>
