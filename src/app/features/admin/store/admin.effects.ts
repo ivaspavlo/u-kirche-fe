@@ -2,60 +2,56 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { switchMap, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 
-import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
-import { AuthApiService, UserApiService } from '@app/services';
-import { KEYS } from '@app/constants';
+import { IRegisterReq, IUser } from '@app/interfaces';
+import { AuthApiService, FirebaseAuthService, UserApiService } from '@app/services';
 import { AdminActions } from './admin.actions';
 import { ADMIN_ROUTE_NAMES } from '../admin.routes';
-import { StorageService } from '@app/services/storage.service';
 
 @Injectable()
 export class AdminEffects {
     readonly #actions$: Actions = inject(Actions);
     readonly #router: Router = inject(Router);
     readonly #authApiService: AuthApiService = inject(AuthApiService);
+    readonly #firebaseAuthService = inject(FirebaseAuthService);
     readonly #userApiService: UserApiService = inject(UserApiService);
-    readonly #storageService: StorageService = inject(StorageService);
     readonly #messageService: MessageService = inject(MessageService);
 
     public login$ = createEffect(() =>
         this.#actions$.pipe(
             ofType(AdminActions.loginUser),
-            switchMap((req: ILoginReq) => this.#authApiService.login(req).pipe(catchError(() => of(null)))),
-            map((res: ILoginRes | null) => {
-                if (res === null) {
-                    this.#messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: 'We could not log you in'
-                    });
-                    return AdminActions.loginUserError();
-                }
-                this.#messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: 'You have logged in'
-                });
-                this.#storageService.setItem(KEYS.ACCESS_TOKEN, res.jwt);
-
-                this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
-
-                return AdminActions.loginUserSuccess();
-            })
+            switchMap(() =>
+                this.#firebaseAuthService.loginWithGoogle().pipe(
+                    tap(() => {
+                        this.#messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'You have logged in'
+                        });
+                        this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.CMS}`);
+                    }),
+                    map(() => AdminActions.loginUserSuccess()),
+                    catchError(() => {
+                        this.#messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'We could not log you in'
+                        });
+                        return of(AdminActions.loginUserError());
+                    })
+                )
+            )
         )
     );
 
     public logout$ = createEffect(() =>
         this.#actions$.pipe(
             ofType(AdminActions.logoutUser),
-            map(() => {
-                this.#storageService.removeItem(KEYS.ACCESS_TOKEN);
-                this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`);
-                return AdminActions.logoutUserSuccess();
-            })
+            switchMap(() => this.#firebaseAuthService.logout().pipe(catchError(() => of(undefined)))),
+            tap(() => this.#router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`)),
+            map(() => AdminActions.logoutUserSuccess())
         )
     );
 

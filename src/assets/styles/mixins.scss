@@ -1,3 +1,5 @@
+// Utility functions
+
 @function stripUnit($value) {
     @return $value / ($value * 0 + 1);
 }
@@ -5,6 +7,8 @@
 @function rem($pxValue) {
     @return #{stripUnit($pxValue) / stripUnit(16px)}rem;
 }
+
+// Mixin for background images with flexible options
 
 @mixin bg-img($img: '', $bg-repeat: no-repeat, $bg-pos: center, $bg-color: transparent, $bg-size: cover) {
     @if $img != '' {
@@ -17,34 +21,49 @@
     background-color: $bg-color;
 }
 
-// Breakpoints are taken from PrimeFlex
+// Responsiveness mixins using PrimeFlex breakpoints
 
 @mixin sm {
-    @media only screen and (min-width: map-get($sm, 'sm')) {
+    @media only screen and (min-width: 576px) {
         @content;
     }
 }
 
 @mixin md {
-    @media only screen and (min-width: map-get($md, 'md')) {
+    @media only screen and (min-width: 768px) {
         @content;
     }
 }
 
 @mixin lg {
-    @media only screen and (min-width: map-get($lg, 'lg')) {
+    @media only screen and (min-width: 992px) {
         @content;
     }
 }
 
 @mixin xl {
-    @media only screen and (min-width: map-get($xl, 'xl')) {
+    @media only screen and (min-width: 1200px) {
         @content;
     }
 }
 
 @mixin xxl {
-    @media only screen and (min-width: map-get($xxl, 'xl')) {
+    @media only screen and (min-width: 1400px) {
         @content;
+    }
+}
+
+// Accessibility mixin for focus-visible states
+
+@mixin focus-visible {
+    &:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--p-button-outlined-primary-border-color) 20%, transparent);
+        border-radius: calc(var(--p-button-border-radius) + 2px);
+        @content;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
     }
 }

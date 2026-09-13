@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { API_URL } from '@env/environment';
-import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
+import { IRegisterReq, IUser } from '@app/interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -11,11 +11,7 @@ import { ILoginReq, ILoginRes, IRegisterReq, IUser } from '@app/interfaces';
 export class AuthApiService {
     #http: HttpClient = inject(HttpClient);
 
-    public login({ email, password }: ILoginReq): Observable<any> {
-        return this.#http.post<ILoginRes>(`${API_URL}/auth/login`, { email, password });
-    }
-
     public register(req: IRegisterReq): Observable<IUser> {
-        return this.#http.post<IUser>(`${API_URL}/account`, req);
+        return this.#http.post<{ users: IUser }>(`${API_URL}/user`, req).pipe(map((response) => response.users));
     }
 }

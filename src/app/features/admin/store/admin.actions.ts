@@ -1,10 +1,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { ILoginReq, IRegisterReq, IUser } from '@app/interfaces';
+import { IRegisterReq, IUser } from '@app/interfaces';
 
 export const AdminActions = createActionGroup({
     source: 'admin',
     events: {
-        'Login User': props<ILoginReq>(),
+        'Login User': emptyProps(),
         'Login User Success': emptyProps(),
         'Login User Error': emptyProps(),
         'Register User': props<IRegisterReq>(),
