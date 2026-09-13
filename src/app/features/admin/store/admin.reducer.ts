@@ -14,9 +14,16 @@ export const adminReducer = createReducer(
             callState: CallState.LOADING
         };
     }),
-    on(AdminActions.loginUserSuccess, AdminActions.logoutUserSuccess, (state) => {
+    on(AdminActions.loginUserSuccess, (state) => {
         return {
             ...state,
+            callState: CallState.LOADED
+        };
+    }),
+    on(AdminActions.logoutUserSuccess, (state) => {
+        return {
+            ...state,
+            user: null,
             callState: CallState.LOADED
         };
     }),

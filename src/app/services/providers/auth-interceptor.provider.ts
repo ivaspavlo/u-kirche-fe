@@ -8,31 +8,25 @@ import {
     HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { API_URL } from '@env/environment';
 import { AdminActions } from '@app/features/admin';
-import { KEYS } from '@app/constants';
-import { StorageService } from '../storage.service';
-
-const NO_AUTH_URLS = ['/auth/login', '/auth/register'];
+import { FirebaseAuthService } from '../firebase-auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    readonly #storageService: StorageService = inject(StorageService);
+    readonly #firebaseAuthService = inject(FirebaseAuthService);
     readonly #store: Store = inject(Store);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.#storageService.getItem(KEYS.ACCESS_TOKEN);
-
-        const url = req.url.split(API_URL)[1];
-
-        if (token && !NO_AUTH_URLS.includes(url)) {
-            req = this.addToken(req, token);
+        if (!req.url.startsWith(API_URL)) {
+            return next.handle(req);
         }
 
-        return next.handle(req).pipe(
+        return this.#firebaseAuthService.getIdToken().pipe(
+            switchMap((token) => next.handle(token ? this.addToken(req, token) : req)),
             catchError((err: any) => {
                 if (err instanceof HttpErrorResponse && err.status === 401) {
                     this.#store.dispatch(AdminActions.logoutUser());
@@ -42,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
         );
     }
 
-    private addToken<T>(req: HttpRequest<T>, token: any): HttpRequest<T> {
+    private addToken<T>(req: HttpRequest<T>, token: string): HttpRequest<T> {
         return req.clone({
             setHeaders: { Authorization: `Bearer ${token}` }
         });

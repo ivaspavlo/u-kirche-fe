@@ -1,11 +1,10 @@
-<h2>Login</h2>
-
-<p>email</p>
-<input type="text" [(ngModel)]="email" />
-
-<p>password</p>
-<input type="email" [(ngModel)]="password" />
-
-<button (click)="onLogin()">Submit</button>
-
-<button (click)="onTest()">Test api</button>
+<main class="login-page">
+    <section class="login-panel" aria-labelledby="login-title">
+        <p class="login-panel__eyebrow">Ukrainische Kirche</p>
+        <h1 id="login-title">Administration</h1>
+        <button type="button" class="google-button" [disabled]="isLoading()" (click)="onLogin()">
+            <i class="pi pi-google" aria-hidden="true"></i>
+            <span>{{ isLoading() ? 'Signing in...' : 'Sign in with Google' }}</span>
+        </button>
+    </section>
+</main>

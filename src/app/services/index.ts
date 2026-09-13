@@ -5,3 +5,4 @@ export * from './api/content-api.service';
 
 // Services
 export * from './date-translation.service';
+export * from './firebase-auth.service';

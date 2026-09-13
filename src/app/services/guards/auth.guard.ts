@@ -1,22 +1,19 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { of } from 'rxjs';
+import { map } from 'rxjs';
 
-import { KEYS } from '@app/constants';
 import { ADMIN_ROUTE_NAMES } from '@app/features/admin/admin.routes';
-import { StorageService } from '../storage.service';
+import { FirebaseAuthService } from '../firebase-auth.service';
 
-export function authGuard(): CanActivateFn {
-    return () => {
-        const router = inject(Router);
-        const storageService: StorageService = inject(StorageService);
+export const authGuard: CanActivateFn = () => {
+    const router = inject(Router);
+    const firebaseAuthService = inject(FirebaseAuthService);
 
-        const canActivate = !!storageService.getItem(KEYS.ACCESS_TOKEN);
-
-        if (!canActivate) {
-            router.navigateByUrl(`${ADMIN_ROUTE_NAMES.PARENT}/${ADMIN_ROUTE_NAMES.LOGIN}`);
-        }
-
-        return of(canActivate);
-    };
-}
+    return firebaseAuthService
+        .isAuthenticated()
+        .pipe(
+            map((isAuthenticated) =>
+                isAuthenticated ? true : router.createUrlTree([ADMIN_ROUTE_NAMES.PARENT, ADMIN_ROUTE_NAMES.LOGIN])
+            )
+        );
+};

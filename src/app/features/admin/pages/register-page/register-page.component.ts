@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { ROLE } from '@app/constants';
 import { AdminActions } from '../../store/admin.actions';
 
 @Component({
@@ -18,14 +17,11 @@ export class RegisterPageComponent {
     public firstName: string = '';
     public lastName: string = '';
     public email: string = '';
-    public password: string = '';
 
-    public onRegsiter(): void {
+    public onRegister(): void {
         const req = {
             name: `${this.firstName} ${this.lastName}`,
-            email: this.email,
-            password: this.password,
-            role: ROLE.ADMIN
+            email: this.email
         };
         this.#store.dispatch(AdminActions.registerUser(req));
     }
